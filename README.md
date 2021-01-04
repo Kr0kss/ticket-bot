@@ -18,11 +18,18 @@ Kroks-Ticket-Bot is a Discord bot for managing support ticket channels, to allow
 ## Donate
 
 
-[
-  ![Donate with PayPal]
-  (https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png)
-]
-(https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QT54MSJR6QU7Y)
+
+
+
+
+The button in `Donation` like `Markdown` topic but only change the image.
+```
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](YOUR_EMAIL_CODE)
+```
+
+
+
+
 
 
 [Paypal](paypal.me/kroksfn)
