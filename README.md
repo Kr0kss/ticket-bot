@@ -9,7 +9,7 @@ Kroks-Ticket-Bot is a Discord bot for managing support ticket channels, to allow
 - Simple commands
 - Most (all of the best) features of the premium bots, for free
 - Self-hosted with your bot application, your logo and guild name
-- Optional express.js server for web archives: [KroksTicketBot-Portal](https://github.com/eartharoid/DiscordTickets-Portal/)
+- Optional express.js server for web archives: [KroksTicketBot-Portal](https://github.com/Kr0kss/ticket-bot/tree/main)
 
 ## Support
 
