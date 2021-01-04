@@ -26,7 +26,7 @@ client.on('message', async message => {
         // ticket-setup #channel
 
         let channel = message.mentions.channels.first();
-        if(!channel) return message.reply("How: `-ticket-setup #channel`");
+        if(!channel) return message.reply("How to use: `-ticket-setup #channel`");
 
         let sent = await channel.send(new Discord.MessageEmbed() // Embed that will be sent after setup
             .setTitle("Ticket System")
