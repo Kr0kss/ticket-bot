@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "!kroks#0001",
   "license": "ISC",
   "dependencies": {
     "better-sqlite3": "^7.1.0",
@@ -14,5 +14,5 @@
     "enmap": "^5.8.2"
   },
   "devDependencies": {},
-  "description": ""
+  "description": "A simple ticket bot by reactions"
 }
