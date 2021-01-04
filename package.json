@@ -1,0 +1,18 @@
+{
+  "name": "ticketbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^7.1.0",
+    "command.js": "0.0.1",
+    "discord.js": "^12.5.1",
+    "enmap": "^5.8.2"
+  },
+  "devDependencies": {},
+  "description": ""
+}
