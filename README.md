@@ -1,6 +1,6 @@
 # Kroks-Ticket-Bot
 
-Kroks-Ticket-Bot is a Discord bot for managing support ticket channels, to allow you and your team to provide better and quicker assistance to your members/customers. It is a free, open-source, and self-hosted alternative to [Ticket Tool](https://tickettool.xyz/) and [TicketsBot](https://ticketsbot.net/) premium/whitelabel plans.
+Kroks-Ticket-Bot is a Discord bot for managing support ticket channels, to allow you and your team to provide better and quicker assistance to your members/customers. It is a free, open-source, and self-hosted alternative to [Ticket Tool](https://tickettool.xyz/) and [TicketsBot](https://ticketsbot.net/) premium/whitelabel plans. Soom I Will do a better bot with more staff :)
 
 ## Features
 
