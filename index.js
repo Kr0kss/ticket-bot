@@ -74,9 +74,10 @@ client.on('messageReactionAdd', async (reaction, user) => {
             ],
             type: 'text'
         }).then(async channel => {
-            channel.send(`<@${user.id}>`, new Discord.MessageEmbed().setTitle("Welcome to @!kroks#0001 support system!").setDescription("The staff will get in touch with you soon!").setColor("RANDOM"))
+            channel.send(`<@${user.id}>`, new Discord.MessageEmbed().setTitle("Welcome to <@473228282293125120> support system!").setDescription("The staff will get in touch with you soon!").setColor("RANDOM"))
         })
     }
 });
+
 
 client.login(token);
