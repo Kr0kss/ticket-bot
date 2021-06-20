@@ -13,4 +13,4 @@ Kroks-Ticket-Bot is a Discord bot for managing support ticket channels, to allow
 
 ## Support
 
-**[Go to my Discord](https://discord.gg/fVw9GNW)**
+**[Go to my Discord](https://discord.gg/U2CGe273Ua)**
