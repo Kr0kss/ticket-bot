@@ -1,7 +1,19 @@
-const Discord = require('discord.js');
-const client = new Discord.Client({partials: ["MESSAGE", "USER", "REACTION"]});
+const {
+    Client,
+    MessageEmbed,
+    Intents,
+    MessageActionRow,
+    MessageButton
+} = require('discord.js');
+const client = new Client({
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS, Intents.FLAGS.GUILD_WEBHOOKS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.GUILD_INVITES, Intents.FLAGS.DIRECT_MESSAGES],
+    partials: ["MESSAGE", "USER"]
+});
 const enmap = require('enmap');
-const {token, prefix} = require('./config.json');
+const {
+    token,
+    prefix
+} = require('./config.json');
 
 const settings = new enmap({
     name: "settings",
@@ -12,70 +24,85 @@ const settings = new enmap({
 
 client.on('ready', () => {
     console.log('ready')
-    client.user.setActivity("🌀 `-ticketsetup", {type: "LISTENING"});
+    client.user.setActivity("🌀 -ticketsetup", {
+        type: "LISTENING"
+    });
 });
 
-client.on('message', async message => {
-    if(message.author.bot) return;
-    if(message.content.indexOf(prefix) !== 0) return;
+client.on('messageCreate', async message => {
+    if (message.author.bot) return;
+    if (!message.content.startsWith(prefix)) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
-    if(command == "ticketsetup") {
+    if (command === "ticketsetup") {
         // ticket-setup #channel
 
         let channel = message.mentions.channels.first();
-        if(!channel) return message.reply("How to use: `-ticket-setup #channel`");
+        if (!channel) return message.reply("How to use: `-ticketsetup #channel`");
 
-        let sent = await channel.send(new Discord.MessageEmbed() // Embed that will be sent after setup
-            .setTitle("Ticket System")
-            .setDescription("React with 🎫 to open a ticket!")
-            .setFooter("Kroks © Ticket System")
-            .setColor("RANDOM")
-        );
+        const button = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                .setCustomId('🎫')
+                .setLabel('🎫')
+                .setStyle('SUCCESS'),
+            );
 
-        sent.react('🎫');
+        let sent = await channel.send({
+            embeds: [
+                new MessageEmbed() // Embed that will be sent after setup
+                .setTitle("Ticket System")
+                .setDescription("Click the 🎫 button to open a ticket!")
+                .setFooter({
+                    text: "Kroks © Ticket System"
+                })
+                .setColor("RANDOM")
+            ],
+            components: [button]
+        });
+
         settings.set(`${message.guild.id}-ticket`, sent.id);
-
-        message.channel.send("Complete ticket system setup!")
+        message.channel.send("Completed ticket system setup!")
     }
 
-    if(command == "close") {
-        if(!message.channel.name.includes("ticket-")) return message.channel.send("You can't use that here!")
+    if (command == "close") {
+        if (!message.channel.name.includes("ticket-")) return message.reply("You can't use that here!")
         message.channel.delete();
     }
 });
 
-client.on('messageReactionAdd', async (reaction, user) => {
-    if(user.partial) await user.fetch();
-    if(reaction.partial) await reaction.fetch();
-    if(reaction.message.partial) await reaction.message.fetch();
+client.on('interactionCreate', async (interaction) => {
+    if (interaction.member.user.bot) return;
 
-    if(user.bot) return;
+    let ticketid = await settings.get(`${interaction.message.guild.id}-ticket`);
+    if (!ticketid) return;
 
-    let ticketid = await settings.get(`${reaction.message.guild.id}-ticket`);
-
-    if(!ticketid) return;
-
-    if(reaction.message.id == ticketid && reaction.emoji.name == '🎫') {
-        reaction.users.remove(user);
-
-        reaction.message.guild.channels.create(`ticket-${user.username}`, {
-            permissionOverwrites: [
-                {
-                    id: user.id,
+    if (ticketid && interaction.customId === '🎫') {
+        interaction.message.guild.channels.create(`ticket-${interaction.member.user.username}`, {
+            permissionOverwrites: [{
+                    id: interaction.member.user.id,
                     allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
                 },
                 {
-                    id: reaction.message.guild.roles.everyone,
+                    id: interaction.message.guild.roles.everyone,
                     deny: ["VIEW_CHANNEL"]
                 }
             ],
-            type: 'text'
+            type: 'GUILD_TEXT'
         }).then(async channel => {
-            channel.send(`<@${user.id}>`, new Discord.MessageEmbed().setTitle("Welcome to <@473228282293125120> support system!").setDescription("The staff will get in touch with you soon!").setColor("RANDOM"))
+            channel.send(`<@${interaction.member.user.id}>`,
+                new MessageEmbed()
+                .setTitle("Welcome to <@473228282293125120> support system!")
+                .setDescription("The staff will get in touch with you soon!").setColor("RANDOM"))
+
+            interaction.reply({
+                content: `Successfully created your support channel in <#${channel.id}>`,
+                ephemeral: true
+            })
         })
+
     }
 });
 
